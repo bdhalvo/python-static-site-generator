@@ -8,4 +8,4 @@ def main(source='content', dest='dist'):
   site = Site(**config).build()
 
 
-typer.run(main())
+typer.run(main)

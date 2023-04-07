@@ -16,6 +16,11 @@ class Content(Mapping):
         return cls(metadata, content)
 
 
+    def __init__(self, metadata, content):
+        data = metadata
+        self.data = "content": content
+
+
     @property
     def body(self):
         return self.data["content"]
@@ -28,11 +33,6 @@ class Content(Mapping):
 
     def set_type(self, new_type):
         self.data["type"] = new_type
-
-
-    def __init__(self, metadata, content):
-        data = metadata
-        self.data = "content": content
 
 
     def __getitem__(self, key):

@@ -5,19 +5,20 @@ from collections.abc import Mapping
 
 
 class Content(Mapping):
-    __delimeter = "^(?:-|\+){3}\s*$"
+    __delimeter = r"^(?:-|\+){3}\s*$"
     __regex = re.compile(__delimeter, re.MULTILINE)
 
 
-    def load(self, cls, string):
-        _, fm, content = __regex.split(string, depth=2)
+    @classmethod
+    def load(cls, string):
+        _, fm, content = cls.__regex.split(string, 2)
         
-        load(fm, Loader=FullLoader)
+        metadata = load(fm, Loader=FullLoader)
         return cls(metadata, content)
 
 
     def __init__(self, metadata, content):
-        data = metadata
+        self.data = metadata
         self.data["content"] = content
 
 
@@ -28,11 +29,11 @@ class Content(Mapping):
 
     @property
     def type(self):
-        return self.data["type"] if self.data["type"] else None
+        return self.data["type"] if "type" in self.data else None
 
-
-    def set_type(self, new_type):
-        self.data["type"] = new_type
+    @type.setter
+    def type(self, type):
+        self.data["type"] = type
 
 
     def __getitem__(self, key):

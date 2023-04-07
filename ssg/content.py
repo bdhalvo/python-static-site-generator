@@ -26,7 +26,7 @@ class Content(Mapping):
         return self.data["type"] if self.data["type"] else None
 
 
-    def set_type(self, new_type)
+    def set_type(self, new_type):
         self.data["type"] = new_type
 
 
